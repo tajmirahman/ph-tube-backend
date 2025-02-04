@@ -1,3 +1,5 @@
+
+
 // Get load data form fetch
 const loadCategories = () => {
     fetch('https://openapi.programming-hero.com/api/phero-tube/categories')
@@ -11,21 +13,32 @@ const loadCategories = () => {
 // ​
 // category_id: "1001"
 
+// when click button show the specific vedio
+function buttonOnclick(id){
+   
+    fetch(`https://openapi.programming-hero.com/api/phero-tube/category/${id}`)
+        .then(res => res.json())
+        .then(data => displayVideos(data.category))
+        .catch(err => console.log(err))
+
+}
+
 // Show display Categories
 
 function displayCategories(categories) {
     const buttonContainer = document.getElementById('btn-container');
 
     categories.forEach((item) => {
-        // console.log(item);
 
         // create Button
-        const button = document.createElement('button');
-        button.classList = 'btn';
-        button.innerText = item.category;
+        const buttonDiv = document.createElement('div');
+ 
+        buttonDiv.innerHTML= `
+        <button onclick="buttonOnclick(${item.category_id})" class="btn">${item.category}</button>
+        `;
 
         // appen container
-        buttonContainer.append(button);
+        buttonContainer.append(buttonDiv);
 
     });
 }
@@ -59,13 +72,25 @@ const loadVedios = () => {
 //   }
 
 
-// Show load Videos
+/// show time 
+
+function getTimeString(time) {
+    const hour = parseInt(time / 3600);
+    const remainingSecond = time % 3600;
+    const minute = parseInt(remainingSecond / 60);
+    const second = remainingSecond % 60;
+    return `${hour}h ${minute}m ${second}s ago`
+}
+
+
+// Show load Videos 
 
 function displayVideos(vedios) {
     const videoContainer = document.getElementById('video-container');
+    videoContainer.innerText= '';
 
     vedios.forEach((video) => {
-        console.log(video);
+        // console.log(video);
 
         //Create div
         const card = document.createElement('div');
@@ -76,7 +101,8 @@ function displayVideos(vedios) {
             src=${video.thumbnail} 
             class="w-full h-full object-cover"
             />
-            <span class="right-4 bottom-2 absolute bg-black rounded text-white px-1">${video.others.posted_date}</span>
+            ${video.others.posted_date?.length === 0 ? '' : `<span class="right-4 bottom-2 absolute bg-black rounded text-white text-sm px-1">${getTimeString(video.others.posted_date)}</span>`}
+            
         </figure >
 
         <div class="px-0 py-2 flex gap-2">
@@ -90,7 +116,7 @@ function displayVideos(vedios) {
                 <div class="flex items-center gap-2">
                     <p>${video.authors[0].profile_name}</p>
 
-                    ${video.authors[0].verified === true ?`<img class="w-5 h-5" src="https://img.icons8.com/?size=96&id=98A4yZTt9abw&format=png"/>`: ""}
+                    ${video.authors[0].verified === true ? `<img class="w-5 h-5" src="https://img.icons8.com/?size=96&id=98A4yZTt9abw&format=png"/>` : ""}
                     
                     
                 </div>
