@@ -62,31 +62,12 @@ function displayCategories(categories) {
 
 // Load vedios 
 
-const loadVedios = () => {
-    fetch("https://openapi.programming-hero.com/api/phero-tube/videos")
+const loadVedios = (search = '') => {
+    fetch(`https://openapi.programming-hero.com/api/phero-tube/videos?title=${search}`)
         .then(res => res.json(res))
         .then(data => displayVideos(data.videos))
         .catch(err => console.log(err))
 }
-
-// {
-//     "category_id": "1003",
-//     "video_id": "aaak",
-//     "thumbnail": "https://i.ibb.co/ZNggzdm/cake.jpg",
-//     "title": "Beyond The Pale",
-//     "authors": [
-//       {
-//         "profile_picture": "https://i.ibb.co/MZ2vbXR/jimm.jpg",
-//         "profile_name": "Jim Gaffigan",
-//         "verified": false
-//       }
-//     ],
-//     "others": {
-//       "views": "2.6K",
-//       "posted_date": "15400"
-//     },
-//     "description": "'Beyond The Pale' by Jim Gaffigan, with 2.6K views, is a comedic gem that explores everyday observations and family life with a light-hearted and witty approach. Jim's humor is accessible and delightful, making this show perfect for anyone who enjoys clean, observational comedy."
-//   }
 
 
 /// show time 
@@ -193,6 +174,13 @@ function displayVideos(vedios) {
 
     });
 }
+
+// search input
+
+document.getElementById('search-input').addEventListener('keyup',(e)=>{
+    loadVedios(e.target.value);
+
+})
 
 
 
