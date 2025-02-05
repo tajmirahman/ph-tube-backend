@@ -5,10 +5,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Create a Ph tube</title>
-    <link rel="stylesheet" href="style.css">
     <!-- daisy and tailwind cdn -->
     <link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.23/dist/full.min.css" rel="stylesheet" type="text/css" />
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
@@ -33,9 +33,26 @@
     <!-- main section stat here -->
 
     <main id="video-container" class="w-11/12 mx-auto grid grid-cols-1 gap-3 md:grid-cols-2 lg:grid-cols-4 py-8 ">
-        
+
 
     </main>
+
+
+    <!-- Modal start here -->
+    <!-- Open the modal using ID.showModal() method -->
+    <button id="show-modal-data" class="btn" onclick="my_modal_2.showModal()">open modal</button>
+    <dialog id="my_modal_2" class="modal">
+        <div class="modal-box">
+            <div id="modal-content">
+
+            </div>
+            
+        </div>
+        <form method="dialog" class="modal-backdrop">
+            <button>close</button>
+        </form>
+    </dialog>
+    <!-- Modal ends here -->
 
 
 
